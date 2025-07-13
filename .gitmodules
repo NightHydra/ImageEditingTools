@@ -1,0 +1,3 @@
+[submodule "libs/MatrixLibrary"]
+	path = libs/MatrixLibrary
+	url = https://github.com/NightHydra/MatrixLibrary
