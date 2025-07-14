@@ -15,7 +15,7 @@
  * @param blank_matrix
  * @param ImMap Is an RGB opened opencv image to read the pixels from.
  */
-void fill_matrix_with_pixel_colors(MathMatrix& blank_matrix, cv::Mat & ImMat)
+void fill_matrix_with_pixel_colors(MathMatrix& blank_matrix, const cv::Mat & ImMat)
 {
     blank_matrix.clear();
 
@@ -23,14 +23,21 @@ void fill_matrix_with_pixel_colors(MathMatrix& blank_matrix, cv::Mat & ImMat)
     {
         for (int c = 0; c<ImMat.cols; c++)
         {
-            std::vector<double> value = ImMat.at<std::vector<double>>(r, c);
+            cv::Vec3b value = ImMat.at<cv::Vec3b>(r, c);
 
-            blank_matrix.addCol(MathVector(value));
+            std::vector<double> vecVal(3, 0);
+
+            for (unsigned int i = 0; i<3; i++)
+            {
+                vecVal[i] = value[static_cast<int>(i)];
+            }
+
+            blank_matrix.addCol(MathVector(vecVal));
         }
     }
 }
 
-bool convert_color_matrix_to_img(cv::Mat & ImMat, MathMatrix& pixels, int width, int height)
+bool convert_color_matrix_to_img(cv::Mat & ImMat, const MathMatrix& pixels, int width, int height)
 {
     if (width <= 0 || height <= 0 || width * height != pixels.getNumCols() || 3 != pixels.getNumRows())
     {
@@ -54,11 +61,12 @@ bool convert_color_matrix_to_img(cv::Mat & ImMat, MathMatrix& pixels, int width,
         }
         ImMat.at<cv::Vec3b>(pixel_row_ind, pixel_col_ind) = color;
 
-        ++pixel_row_ind;
-        if (pixel_row_ind == width)
+
+        ++pixel_col_ind;
+        if (pixel_col_ind == width)
         {
-            pixel_row_ind = 0;
-            ++pixel_col_ind;
+            pixel_col_ind = 0;
+            ++pixel_row_ind;
         }
     }
     return true;

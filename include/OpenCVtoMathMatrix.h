@@ -10,7 +10,7 @@
 
 #include <MatrixLibrary/matrix_library.h>
 
-void loadImageToMatrix(MathMatrix& blank_matrix, std::string file_path);
-bool convert_color_matrix_to_img(cv::Mat & ImMat, MathMatrix& pixels, int width, int height);
+void fill_matrix_with_pixel_colors(MathMatrix& blank_matrix, const cv::Mat & ImMat);
+bool convert_color_matrix_to_img(cv::Mat & ImMat, const MathMatrix& pixels, int width, int height);
 
 #endif //OPENCV_TO_MATH_MATRIX_H_

@@ -11,10 +11,10 @@ add_library(image_editing_library src/OpenCVtoMathMatrix.cpp
 
 # Submodule Dependencies
 add_subdirectory(libs/MatrixLibrary)
-target_link_libraries(image_editing_library PUBLIC matrix_library OpenCV)
+target_link_libraries(image_editing_library PUBLIC matrix_library ${OpenCV_LIBS})
 
 target_include_directories(image_editing_library PUBLIC include)
-target_include_directories(image_editing_library PUBLIC include/ImageEditingLibrary)
+target_include_directories(image_editing_library PUBLIC include/ImageEditingLibrary ${OpenCV_INCLUDE_DIRS})
 
 
 
